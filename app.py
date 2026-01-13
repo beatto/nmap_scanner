@@ -19,9 +19,14 @@ import time
 @app.route('/api/scan', methods=['POST'])
 def scan():
     data = request.json
-    target = data.get('target')
-    if not target:
-        return jsonify({"status": "error", "message": "No target specified"}), 400
+    target = data.get('target', '').strip()
+    
+    # Basic Input Validation
+    import re
+    # Allow: IP, CIDR, Range (1.1.1.1-5), Hostnames
+    # Disallow: Spaces, Semicolons, quotes, etc. to prevent Nmap argument injection
+    if not target or not re.match(r'^[a-zA-Z0-9\.\-\/_]+$', target):
+        return jsonify({"status": "error", "message": "Invalid target format. Use IP, CIDR, or Hostname."}), 400
 
     def generate():
         all_hosts_data = []
@@ -98,4 +103,4 @@ def delete_history_item(scan_id):
 
 if __name__ == '__main__':
     # Running on 127.0.0.1:5000 by default
-    app.run(debug=True)
+    app.run(debug=False)
