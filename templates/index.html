@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmap Scanner Web Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>Nmap Network Scanner</h1>
+        </div>
+        <div class="loader"></div>
+    </header>
+
+    <main>
+        <aside class="history-sidebar">
+            <h2>Scan History</h2>
+            <div id="history-list">
+                <!-- History items will be injected here -->
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="scan-controls">
+                <input type="text" id="target-input" placeholder="Enter Target (e.g., 127.0.0.1 or 192.168.0.1/24)" value="127.0.0.1">
+                <button id="scan-btn">Run Scan</button>
+            </div>
+
+            <div id="results-area">
+                <div class="result-card">
+                    <h3>Welcome</h3>
+                    <p>Enter an IP address or range above and click "Run Scan" to begin. Previous results will appear in the history sidebar.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

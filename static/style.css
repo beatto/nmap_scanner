@@ -1,0 +1,335 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --accent-color: #38bdf8;
+    --border-color: #334155;
+    --success-color: #4ade80;
+    --error-color: #f87171;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-container h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+.history-sidebar {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.history-sidebar h2 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.history-item:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.history-item.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: var(--accent-color);
+}
+
+.history-item-info {
+    flex: 1;
+}
+
+.history-del-btn {
+    opacity: 0;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.history-item:hover .history-del-btn {
+    opacity: 1;
+}
+
+.history-del-btn:hover {
+    color: var(--error-color);
+    transform: scale(1.2);
+}
+
+.history-item .target {
+    font-weight: 600;
+    display: block;
+}
+
+.history-item .time {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+
+.scan-controls {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+input[type="text"] {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.8rem;
+    color: white;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
+
+button {
+    background: var(--accent-color);
+    color: #0f172a;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Progress & Status UI */
+.progress-container {
+    width: 100%;
+    background: #0f172a;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
+    display: none;
+}
+
+.progress-bar {
+    width: 30%;
+    height: 100%;
+    background: var(--accent-color);
+    border-radius: 4px;
+    animation: progress-indefinite 2s linear infinite;
+}
+
+@keyframes progress-indefinite {
+    from {
+        margin-left: -30%;
+    }
+
+    to {
+        margin-left: 100%;
+    }
+}
+
+.status-log {
+    background: #000;
+    color: var(--success-color);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    display: none;
+    border: 1px solid var(--border-color);
+}
+
+.log-entry {
+    margin-bottom: 0.25rem;
+}
+
+.log-entry.error {
+    color: var(--error-color);
+}
+
+.download-btn {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.download-btn:hover {
+    background: var(--accent-color);
+    color: #0f172a;
+}
+
+/* Host Details Accordion */
+.host-card-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    transition: background 0.2s;
+}
+
+.host-card-header:hover {
+    background: rgba(56, 189, 248, 0.05);
+}
+
+.details-toggle-icon {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    transition: transform 0.3s;
+}
+
+.expanded .details-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.host-details-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s;
+    opacity: 0;
+    border-top: 1px solid transparent;
+}
+
+.expanded .host-details-content {
+    max-height: 2000px;
+    /* Large enough for tables */
+    opacity: 1;
+    border-top: 1px solid var(--border-color);
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.result-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+.result-card h3 {
+    margin-top: 0;
+    color: var(--accent-color);
+}
+
+.port-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.port-table th {
+    text-align: left;
+    padding: 0.75rem;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.port-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.state-open {
+    color: var(--success-color);
+}
+
+.state-closed {
+    color: var(--error-color);
+}
+
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
